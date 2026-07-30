@@ -9,10 +9,10 @@ function Card({ item, index }: { item: (typeof modules.items)[number]; index: nu
     <Reveal delay={(index % 3) * 0.08}>
       <div
         id={item.id}
-        className={`card group h-full scroll-mt-28 p-7 transition-colors duration-300 md:p-10 ${
+        className={`card group h-full scroll-mt-28 p-7 transition-colors duration-300 md:p-9 ${
           item.accent
-            ? "border-gradient-ia bg-[linear-gradient(150deg,rgba(43,182,163,0.09),rgba(216,32,127,0.07)_58%,rgba(74,92,176,0.09))]"
-            : "hover:border-paper/[0.18] hover:bg-paper/[0.025]"
+            ? "border-gradient-ia bg-[linear-gradient(150deg,rgba(43,182,163,0.08),rgba(216,32,127,0.06)_58%,rgba(74,92,176,0.08))]"
+            : "border-paper/[0.08] bg-paper/[0.012] hover:border-paper/[0.14] hover:bg-paper/[0.025]"
         }`}
       >
         <div className="relative flex h-full flex-col">
@@ -20,8 +20,8 @@ function Card({ item, index }: { item: (typeof modules.items)[number]; index: nu
           <span
             className={
               item.accent
-                ? "text-gradient-ia w-full max-w-[460px] rounded-full border border-paper/12 bg-paper/[0.055] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em]"
-                : "w-full max-w-[460px] rounded-full border border-paper/12 bg-paper/[0.055] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-300"
+                ? "text-gradient-ia w-full max-w-[460px] rounded-full border border-paper/[0.10] bg-paper/[0.045] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em]"
+                : "w-full max-w-[460px] rounded-full border border-paper/[0.10] bg-paper/[0.045] px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-300"
             }
           >
             {item.tag}
@@ -33,14 +33,14 @@ function Card({ item, index }: { item: (typeof modules.items)[number]; index: nu
               alt="Nexus IA"
               width={325}
               height={160}
-              className="mt-10 h-9 w-auto object-contain"
+              className="mt-9 h-9 w-auto object-contain"
             />
           ) : (
-            <h3 className="mt-10 font-display text-2xl font-semibold tracking-tight text-paper">{item.title}</h3>
+            <h3 className="mt-9 font-display text-2xl font-semibold tracking-tight text-paper">{item.title}</h3>
           )}
 
-          <p className="mt-7 text-[15px] leading-relaxed text-fog/95">{item.body}</p>
-          <ul className="mt-auto flex flex-wrap gap-2 pt-12">
+          <p className="mt-6 text-[15px] leading-relaxed text-fog/95">{item.body}</p>
+          <ul className="mt-auto flex flex-wrap gap-2 pt-10">
             {item.bullets.map((b) => (
               <li
                 key={b}

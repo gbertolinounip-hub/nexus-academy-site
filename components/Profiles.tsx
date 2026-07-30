@@ -32,8 +32,8 @@ export default function Profiles() {
                     <button
                       onClick={() => pick(i)}
                       aria-pressed={on}
-                      className={`group flex w-full items-center justify-between gap-4 border-t border-paper/[0.09] py-5 text-left transition-colors ${
-                        on ? "border-brand-400/70" : "hover:border-paper/30"
+                      className={`group flex w-full items-center justify-between gap-4 border-t py-5 text-left transition-colors ${
+                        on ? "border-brand-300" : "border-paper/[0.14] hover:border-brand-400/50"
                       }`}
                     >
                       <span
@@ -46,8 +46,8 @@ export default function Profiles() {
                       <span
                         className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-all duration-300 ${
                           on
-                            ? "border-brand-300 bg-brand-500/30 text-brand-100 shadow-[0_0_34px_-8px_rgb(var(--brand-400)/0.9)]"
-                            : "border-paper/18 text-fog/70 group-hover:border-brand-400/55 group-hover:text-brand-300"
+                            ? "border-brand-300 bg-brand-500/45 text-white shadow-[0_0_42px_-8px_rgb(var(--brand-400)/1)]"
+                            : "border-paper/25 bg-paper/[0.025] text-fog/80 group-hover:border-brand-400/70 group-hover:bg-brand-500/20 group-hover:text-brand-200"
                         }`}
                       >
                         {/* o pulso caminha para o próximo perfil ainda não visto */}
