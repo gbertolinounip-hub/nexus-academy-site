@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { hero, marquee } from "@/lib/content";
 import Magnetic from "./ui/Magnetic";
@@ -12,9 +13,20 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
   const reduced = useReducedMotion();
+  const [showIntro, setShowIntro] = useState(false);
 
   // o texto começa a surgir enquanto a marca ainda desliza para a direita
   const base = reduced ? 0 : 1.35;
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const sync = () => setShowIntro(query.matches);
+
+    sync();
+    query.addEventListener("change", sync);
+
+    return () => query.removeEventListener("change", sync);
+  }, []);
 
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden pt-[74px]">
@@ -23,9 +35,20 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-[0.35]" />
 
       {/* as partículas montam a marca e ficam estacionadas à direita da headline */}
-      <div className="pointer-events-none absolute inset-0">
-        <NexusIntro />
-      </div>
+      {showIntro && (
+        <div className="pointer-events-none absolute inset-0 hidden md:block">
+          <NexusIntro />
+        </div>
+      )}
+
+      <Image
+        src="/brand/nexus-simbolo.png"
+        alt=""
+        width={900}
+        height={900}
+        priority
+        className="pointer-events-none absolute -right-[42%] top-[13%] h-auto w-[92vw] max-w-none opacity-[0.10] mix-blend-screen md:hidden"
+      />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent" />
 
