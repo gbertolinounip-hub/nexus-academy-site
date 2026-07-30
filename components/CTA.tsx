@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { contactEmail, cta } from "@/lib/content";
+import { cta } from "@/lib/content";
 import Magnetic from "./ui/Magnetic";
 import Reveal, { RevealWords } from "./ui/Reveal";
 
 const field =
   "w-full rounded-xl border border-paper/12 bg-paper/[0.03] px-4 py-3.5 text-sm text-paper placeholder:text-fog/45 outline-none transition-colors focus:border-brand-400";
 
-/** Rótulos amigáveis para montar o corpo do e-mail. */
 const LABELS: Record<string, string> = {
   nome: "Nome",
   email: "E-mail institucional",
@@ -21,32 +20,43 @@ const LABELS: Record<string, string> = {
 
 export default function CTA() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  /**
-   * Sem back-end ainda: o pedido é montado como e-mail e entregue ao cliente
-   * de correio do visitante. Trocar por rota de API ou CRM quando houver.
-   */
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const instituicao = String(data.get("instituicao") ?? "").trim();
+    setError("");
+    setSending(true);
 
-    const corpo = Object.keys(LABELS)
-      .map((k) => {
-        const v = String(data.get(k) ?? "").trim();
-        return v ? `${LABELS[k]}: ${v}` : null;
-      })
-      .filter(Boolean)
-      .join("\n");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = Object.fromEntries(
+      Object.keys(LABELS).map((key) => [key, String(data.get(key) ?? "").trim()])
+    );
 
-    const assunto = instituicao
-      ? `Pedido de demonstração · ${instituicao}`
-      : "Pedido de demonstração";
+    try {
+      const response = await fetch("/api/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => null)) as { error?: string } | null;
 
-    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
-      assunto
-    )}&body=${encodeURIComponent(corpo)}`;
-    setSent(true);
+      if (!response.ok) {
+        throw new Error(result?.error || "Não foi possível enviar a solicitação.");
+      }
+
+      form.reset();
+      setSent(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Não foi possível enviar a solicitação. Tente novamente em instantes."
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -67,17 +77,21 @@ export default function CTA() {
           </Reveal>
           <Reveal delay={0.18}>
             <ul className="mt-10 space-y-3">
-              {cta.checks.map(
-                (t) => (
-                  <li key={t} className="flex items-center gap-3 text-sm text-paper/80">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <circle cx="8" cy="8" r="7" stroke="#4A9FE0" strokeWidth="1.2" />
-                      <path d="m5 8.2 2 2 4-4.4" stroke="#4A9FE0" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {t}
-                  </li>
-                )
-              )}
+              {cta.checks.map((t) => (
+                <li key={t} className="flex items-center gap-3 text-sm text-paper/80">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <circle cx="8" cy="8" r="7" stroke="#4A9FE0" strokeWidth="1.2" />
+                    <path
+                      d="m5 8.2 2 2 4-4.4"
+                      stroke="#4A9FE0"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  {t}
+                </li>
+              ))}
             </ul>
           </Reveal>
         </div>
@@ -88,20 +102,20 @@ export default function CTA() {
               <div className="flex min-h-[380px] flex-col items-center justify-center text-center">
                 <span className="grid h-14 w-14 place-items-center rounded-full border border-brand-400/50 text-brand-300">
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-                    <path d="m6 11.4 3.2 3.2L16.4 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="m6 11.4 3.2 3.2L16.4 7"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </span>
-                <h3 className="mt-6 font-display text-2xl text-paper">Quase lá</h3>
+                <h3 className="mt-6 font-display text-2xl text-paper">Solicitação enviada</h3>
                 <p className="mt-3 max-w-[38ch] text-sm text-fog">
-                  Abrimos seu programa de e-mail com o pedido preenchido. Basta enviar e nossa
-                  equipe responde em até um dia útil.
+                  Solicitação enviada com sucesso. Nossa equipe entrará em contato em até um dia
+                  útil.
                 </p>
-                <a
-                  href={`mailto:${contactEmail}`}
-                  className="mt-5 border-b border-brand-400/40 pb-0.5 text-sm text-brand-300 transition-colors hover:border-brand-300"
-                >
-                  {contactEmail}
-                </a>
               </div>
             ) : (
               <form className="space-y-4" onSubmit={submit}>
@@ -165,10 +179,22 @@ export default function CTA() {
                   aria-label="Mensagem"
                 />
                 <Magnetic strength={0.15} className="!block">
-                  <button type="submit" className="btn-primary w-full">
-                    Quero a demonstração
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {sending ? "Enviando..." : "Quero a demonstração"}
                   </button>
                 </Magnetic>
+                {error ? (
+                  <p
+                    className="rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-center text-[12px] leading-relaxed text-red-100"
+                    role="alert"
+                  >
+                    {error}
+                  </p>
+                ) : null}
                 <p className="text-center text-[11px] leading-relaxed text-fog/55">
                   Ao enviar você concorda com o tratamento dos dados conforme nossa Política de Privacidade (LGPD).
                 </p>
