@@ -13,9 +13,8 @@ export const metadata: Metadata = {
   // interna sobrescreve o seu — sem isso, todas herdariam "/" e se declarariam
   // cópias da home, tirando /sobre, /solucoes e /instalar do índice de busca.
   alternates: { canonical: "/" },
-  title: "Nexus Academy · Gestão acadêmica inteligente para cursos da área da saúde",
-  description:
-    "Plataforma de gestão acadêmica com foco em estágios, clínica supervisionada, avaliação por competências, auditoria e inteligência de aprendizagem. Com a NexusIA, dados acadêmicos viram análises pedagógicas revisáveis pelo docente.",
+  title: "Nexus Academy",
+  description: "Gestão acadêmica inteligente para cursos da área da saúde.",
   keywords: [
     "gestão acadêmica",
     "clínica supervisionada",
@@ -27,9 +26,8 @@ export const metadata: Metadata = {
     "inteligência de aprendizagem",
   ],
   openGraph: {
-    title: "Nexus Academy · Gestão acadêmica inteligente para a área da saúde",
-    description:
-      "Gestão acadêmica, estágio, clínica supervisionada, avaliação por competências e IA em uma única plataforma.",
+    title: "Nexus Academy",
+    description: "Gestão acadêmica inteligente para cursos da área da saúde.",
     siteName: "Nexus Academy",
     locale: "pt_BR",
     type: "website",
@@ -45,9 +43,8 @@ export const metadata: Metadata = {
   // sem isso o X mostra um cartão pequeno, com a imagem em miniatura ao lado
   twitter: {
     card: "summary_large_image",
-    title: "Nexus Academy · Gestão acadêmica inteligente para a área da saúde",
-    description:
-      "Gestão acadêmica, estágio, clínica supervisionada, avaliação por competências e IA em uma única plataforma.",
+    title: "Nexus Academy",
+    description: "Gestão acadêmica inteligente para cursos da área da saúde.",
     images: ["/og-nexus-academy.png"],
   },
   robots: { index: true, follow: true },
