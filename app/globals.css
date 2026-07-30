@@ -80,7 +80,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* NÃO declare `scroll-behavior: smooth` aqui.
+     O Lenis (components/Chrome.tsx) já faz a rolagem suave, e os dois juntos
+     disputam o controle a cada clique de âncora — é o que travava a navegação. */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -233,11 +235,6 @@ body {
   z-index: 90;
   border-radius: 999px;
   mix-blend-mode: difference;
-  opacity: 0;
-}
-.cursor-dot.is-visible,
-.cursor-ring.is-visible {
-  opacity: 1;
 }
 .cursor-dot {
   width: 5px;
@@ -248,7 +245,7 @@ body {
   width: 30px;
   height: 30px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  transition: opacity 0.2s ease, width 0.28s ease, height 0.28s ease, border-color 0.28s ease;
+  transition: width 0.28s ease, height 0.28s ease, border-color 0.28s ease;
 }
 .cursor-ring.is-active {
   width: 52px;

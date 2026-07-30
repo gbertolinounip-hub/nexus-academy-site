@@ -9,7 +9,6 @@ import Magnetic from "./ui/Magnetic";
 const NexusIntro = dynamic(() => import("./NexusIntro"), { ssr: false });
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const VISIBLE_INITIAL = { opacity: 0.94, y: 10 };
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -33,7 +32,7 @@ export default function Hero() {
       <div className="shell relative flex min-h-[calc(100svh-74px)] flex-col justify-center py-24">
         <motion.p
           className="eyebrow"
-          initial={reduced ? false : { opacity: 0.94 }}
+          initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: base, duration: 0.9 }}
         >
@@ -43,12 +42,12 @@ export default function Hero() {
 
         <h1 className="h-display mt-8 max-w-[15ch] text-[clamp(3rem,9vw,7.5rem)]">
           {hero.title.map((line, i) => (
-            <span key={i} className="block pb-[0.06em]">
+            <span key={i} className="block overflow-hidden pb-[0.06em]">
               <motion.span
                 className={`block ${i >= 1 ? "text-brand-300" : ""}`}
-                initial={reduced ? false : VISIBLE_INITIAL}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: base + 0.1 + i * 0.1, duration: 0.65, ease: EASE }}
+                initial={reduced ? false : { y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: base + 0.1 + i * 0.1, duration: 1.1, ease: EASE }}
               >
                 {line}
               </motion.span>
@@ -66,18 +65,18 @@ export default function Hero() {
 
         <motion.p
           className="mt-8 max-w-[54ch] text-[15px] leading-relaxed text-fog md:text-[17px]"
-          initial={reduced ? false : VISIBLE_INITIAL}
+          initial={reduced ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: base + 0.55, duration: 0.6 }}
+          transition={{ delay: base + 0.55, duration: 1 }}
         >
           {hero.lead}
         </motion.p>
 
         <motion.div
           className="mt-11 flex flex-wrap items-center gap-4"
-          initial={reduced ? false : VISIBLE_INITIAL}
+          initial={reduced ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: base + 0.68, duration: 0.6 }}
+          transition={{ delay: base + 0.68, duration: 1 }}
         >
           <Magnetic>
             <a href={hero.primary.href} className="btn-primary">
@@ -122,9 +121,9 @@ export default function Hero() {
 
         <motion.dl
           className="mt-20 grid max-w-3xl grid-cols-1 gap-x-12 gap-y-7 sm:grid-cols-3"
-          initial={reduced ? false : { opacity: 0.94 }}
+          initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: base + 0.85, duration: 0.6 }}
+          transition={{ delay: base + 0.85, duration: 1.1 }}
         >
           {hero.pillars.map((s) => (
             <div key={s.label} className="border-t border-paper/[0.1] pt-5">
