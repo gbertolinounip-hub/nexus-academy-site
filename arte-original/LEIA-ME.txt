@@ -1,0 +1,8 @@
+Arte de marca que NÃO é usada pelo site.
+
+Ficava em public/brand/, mas tudo que está em public/ é copiado para o
+servidor na publicação — eram 3,3 MB enviados a cada visita potencial sem
+nenhuma página apontando para eles.
+
+Os arquivos continuam aqui, fora da pasta publicada. Para voltar a usar
+algum, mova de volta para public/brand/ e referencie no componente.

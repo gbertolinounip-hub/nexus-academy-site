@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Temas.
+ *
+ * As cores são triplas RGB sem função, e não hex: é isso que permite ao Tailwind
+ * aplicar opacidade em cima (`bg-paper/[0.06]`) continuando sensível ao tema.
+ *
+ * `paper` é o neutro que INVERTE. No escuro é branco, no azul é o azul-marinho
+ * do texto. Todo lugar que antes dizia `white/…` passa a dizer `paper/…` e
+ * funciona nos dois temas sem duplicar regra.
+ */
+:root {
+  --ink: 4 6 12;
+  --ink-800: 8 12 22;
+  --ink-700: 13 19 32;
+  --ink-600: 19 27 44;
+
+  --paper: 255 255 255;
+  --fog: 147 162 190;
+
+  --brand-300: 124 192 245;
+  --brand-400: 74 159 224;
+  /* 500 é o fundo do botão primário: escurecido para passar em contraste com texto branco */
+  --brand-500: 37 112 176;
+  --brand-600: 31 90 143;
+  --brand-700: 23 63 102;
+  --brand-900: 14 30 51;
+
+  --line: rgba(140, 175, 225, 0.13);
+  --scrollbar: 31 51 80;
+  --noise: 0.045;
+
+  /* cartões: no escuro são um véu claro; no azul viram papel branco de verdade */
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --card-bg-hover: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.07);
+
+  --ia-gradient: linear-gradient(
+    100deg,
+    #2bb6a3 0%,
+    #56c271 20%,
+    #f0b419 40%,
+    #e43b3b 60%,
+    #d8207f 78%,
+    #4a5cb0 100%
+  );
+}
+
+[data-theme="azul"] {
+  --ink: 219 232 246;
+  --ink-800: 230 238 249;
+  --ink-700: 255 255 255;
+  --ink-600: 241 246 252;
+
+  --paper: 11 27 51;
+  --fog: 74 93 124;
+
+  --brand-300: 26 79 184;
+  --brand-400: 37 99 235;
+  --brand-500: 31 98 168;
+  --brand-600: 23 69 122;
+  /* 700 e 900 só aparecem como brilho de fundo e superfície suave: no claro precisam clarear */
+  --brand-700: 37 99 235;
+  --brand-900: 219 232 246;
+
+  --line: rgba(26, 79, 184, 0.12);
+  --scrollbar: 185 201 226;
+  --noise: 0.025;
+
+  --card-bg: #ffffff;
+  --card-bg-hover: #ffffff;
+  --card-border: rgba(26, 79, 184, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* o header é fixo: sem isso a âncora para debaixo dele */
+:where(section[id], [id^="area-"], #faq) {
+  scroll-margin-top: 96px;
+}
+
+body {
+  background: rgb(var(--ink));
+  color: rgb(var(--paper));
+  overflow-x: hidden;
+  /* a troca de tema não deve parecer um susto */
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ---------- Selection & scrollbar ---------- */
+::selection {
+  background: rgb(var(--brand-500) / 0.4);
+  color: rgb(var(--ink));
+}
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--ink));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--scrollbar));
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--brand-400));
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 md:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-brand-300/80;
+  }
+
+  .h-display {
+    @apply font-display font-medium leading-[0.95] tracking-[-0.03em];
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl backdrop-blur-sm;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:border-brand-400/35;
+  }
+  .card-hover:hover {
+    background: var(--card-bg-hover);
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300;
+  }
+
+  /* o hover escurece em vez de clarear: clarear derrubava o contraste do texto branco.
+     `text-white` aqui é literal nos dois temas — o fundo é azul escuro em ambos. */
+  .btn-primary {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600 hover:shadow-[0_0_44px_-6px_rgb(var(--brand-400)/0.75)];
+  }
+
+  .btn-ghost {
+    @apply btn border border-paper/15 text-paper/80 hover:border-paper/35 hover:text-paper;
+  }
+}
+
+@layer utilities {
+  .text-gradient-ia {
+    background: var(--ia-gradient);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .border-gradient-ia {
+    position: relative;
+  }
+  .border-gradient-ia::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--ia-gradient);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .grid-lines {
+    background-image: linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 78px 78px;
+    mask-image: radial-gradient(ellipse 90% 60% at 50% 40%, #000 20%, transparent 78%);
+  }
+
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--noise);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+
+  /**
+   * A assinatura da NexusIA é imagem, não texto: não herda cor.
+   * São dois arquivos, e o tema decide qual aparece — a versão de letras claras
+   * desapareceria no azul, e a de letras escuras desaparece no escuro.
+   */
+  .ia-on-dark {
+    display: block;
+  }
+  .ia-on-light {
+    display: none;
+  }
+  [data-theme="azul"] .ia-on-dark {
+    display: none;
+  }
+  [data-theme="azul"] .ia-on-light {
+    display: block;
+  }
+}
+
+/* ---------- Custom cursor ---------- */
+/* `difference` já se inverte sozinho: sobre fundo claro o cursor sai escuro. */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 90;
+  border-radius: 999px;
+  mix-blend-mode: difference;
+  opacity: 0;
+}
+.cursor-dot.is-visible,
+.cursor-ring.is-visible {
+  opacity: 1;
+}
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.85);
+}
+.cursor-ring {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: opacity 0.2s ease, width 0.28s ease, height 0.28s ease, border-color 0.28s ease;
+}
+.cursor-ring.is-active {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(124, 192, 245, 0.7);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
