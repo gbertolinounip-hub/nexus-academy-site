@@ -135,7 +135,7 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="relative border-y border-paper/[0.06] py-4"
+        className="relative border-y border-paper/[0.16] py-4"
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: base + 1, duration: 1 }}
@@ -144,10 +144,10 @@ export default function Hero() {
           {[...marquee, ...marquee].map((m, i) => (
             <span
               key={i}
-              className="flex items-center gap-10 text-[11px] uppercase tracking-[0.24em] text-fog/45"
+              className="flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.24em] text-paper/62"
             >
               {m}
-              <span className="h-1 w-1 rounded-full bg-brand-500/60" />
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-400 shadow-[0_0_16px_rgb(var(--brand-400)/0.9)]" />
             </span>
           ))}
         </div>
