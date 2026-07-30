@@ -34,7 +34,7 @@ function InstallIcon() {
  * fica sempre visível a partir de 780px, tudo o mais entra depois:
  *   780px   frase "Gestão acadêmica inteligente"
  *   1200px  links do menu
- *   1360px  "Instale o app"
+ *   1240px  "Instale o app"
  *
  * Medido em toda a faixa de 360 a 2000px, a pior folga é 46px.
  */
@@ -96,7 +96,7 @@ export default function Nav() {
           {/* acompanha o botão de acesso: mesmo grupo, peso menor */}
           <a
             href={navInstall.href}
-            className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-fog transition-colors hover:text-paper min-[1360px]:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap text-[13px] text-fog transition-colors hover:text-paper min-[1240px]:inline-flex"
           >
             <InstallIcon />
             {navInstall.label}

@@ -3,6 +3,7 @@ import CTA from "@/components/CTA";
 import Flow from "@/components/Flow";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import InstallApp from "@/components/InstallApp";
 import Infra from "@/components/Infra";
 import Intelligence from "@/components/Intelligence";
 import Modules from "@/components/Modules";
@@ -32,6 +33,7 @@ export default function Page() {
         <Infra />
         <Security />
         <CTA />
+        <InstallApp />
       </main>
       <Footer />
     </>

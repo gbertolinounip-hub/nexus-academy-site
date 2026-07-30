@@ -18,7 +18,7 @@ export const navCta = {
  */
 export const navInstall = {
   label: "Instale o app",
-  href: "/instalar",
+  href: "/#instalar",
 };
 
 /** Destino dos pedidos de demonstração enquanto não houver CRM conectado. */
@@ -510,7 +510,7 @@ export const footer = {
       links: [
         { label: "Sobre o Nexus", href: "/sobre" },
         { label: "Soluções", href: "/solucoes" },
-        { label: "Instale o app", href: "/instalar" },
+        { label: "Instale o app", href: "/#instalar" },
         { label: "Segurança e LGPD", href: "/#infraestrutura" },
         { label: "Perguntas frequentes", href: "/#faq" },
         { label: "Acesso institucional", href: "https://app.nexusacad.com.br/login" },
