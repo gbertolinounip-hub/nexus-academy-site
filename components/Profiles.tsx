@@ -33,7 +33,7 @@ export default function Profiles() {
                       onClick={() => pick(i)}
                       aria-pressed={on}
                       className={`group flex w-full items-center justify-between gap-4 border-t border-paper/[0.09] py-5 text-left transition-colors ${
-                        on ? "border-brand-400/50" : "hover:border-paper/25"
+                        on ? "border-brand-400/70" : "hover:border-paper/30"
                       }`}
                     >
                       <span
@@ -44,10 +44,10 @@ export default function Profiles() {
                         {g.who}
                       </span>
                       <span
-                        className={`relative grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-all duration-300 ${
+                        className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-all duration-300 ${
                           on
-                            ? "border-brand-400 bg-brand-500/20 text-brand-300"
-                            : "border-paper/12 text-fog/60 group-hover:border-paper/30"
+                            ? "border-brand-300 bg-brand-500/30 text-brand-100 shadow-[0_0_34px_-8px_rgb(var(--brand-400)/0.9)]"
+                            : "border-paper/18 text-fog/70 group-hover:border-brand-400/55 group-hover:text-brand-300"
                         }`}
                       >
                         {/* o pulso caminha para o próximo perfil ainda não visto */}

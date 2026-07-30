@@ -18,16 +18,18 @@ export default function Problem() {
             </Reveal>
           </div>
 
-          <ul className="space-y-px">
+          <ul className="border-t border-paper/[0.14]">
             {problems.items.map((it, i) => (
               <Reveal key={it.n} delay={i * 0.07}>
-                <li className="group grid grid-cols-[auto_1fr] gap-6 border-t border-paper/[0.08] py-9 transition-colors hover:border-brand-400/40">
-                  <span className="font-display text-sm text-brand-400/70 transition-colors group-hover:text-brand-300">
+                <li className="group grid grid-cols-[auto_1fr] gap-7 border-b border-paper/[0.13] py-10 transition-colors hover:border-brand-400/55">
+                  <span className="font-display text-base font-semibold text-brand-300 transition-colors group-hover:text-brand-200">
                     {it.n}
                   </span>
                   <div>
-                    <h3 className="font-display text-xl tracking-tight text-paper md:text-2xl">{it.title}</h3>
-                    <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-fog">{it.body}</p>
+                    <h3 className="font-display text-xl font-semibold tracking-tight text-paper md:text-2xl">
+                      {it.title}
+                    </h3>
+                    <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-fog/95">{it.body}</p>
                   </div>
                 </li>
               </Reveal>

@@ -101,8 +101,8 @@ export function ClickHint({
 export function PulseRing({ tone = "light" }: { tone?: "light" | "dark" }) {
   return (
     <span
-      className={`pointer-events-none absolute inset-0 animate-ping rounded-full border ${
-        tone === "light" ? "border-[#1e3a8a]/40" : "border-brand-400/60"
+      className={`pointer-events-none absolute -inset-1 animate-ping rounded-full border-2 ${
+        tone === "light" ? "border-[#1e3a8a]/45" : "border-brand-400/80"
       }`}
     />
   );

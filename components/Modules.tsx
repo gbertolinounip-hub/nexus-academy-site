@@ -1,48 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
 import { modules } from "@/lib/content";
 import Reveal, { RevealWords } from "./ui/Reveal";
 
 function Card({ item, index }: { item: (typeof modules.items)[number]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  // brilho que segue o cursor dentro do card
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-
   return (
     <Reveal delay={(index % 3) * 0.08}>
       <div
         id={item.id}
-        ref={ref}
-        onMouseMove={onMove}
-        className={`card card-hover group h-full scroll-mt-28 p-8 ${
+        className={`card group h-full scroll-mt-28 p-7 transition-colors duration-300 md:p-10 ${
           item.accent
-            ? "border-gradient-ia bg-[linear-gradient(150deg,rgba(43,182,163,0.10),rgba(216,32,127,0.08)_55%,rgba(74,92,176,0.10))]"
-            : ""
+            ? "border-gradient-ia bg-[linear-gradient(150deg,rgba(43,182,163,0.09),rgba(216,32,127,0.07)_58%,rgba(74,92,176,0.09))]"
+            : "hover:border-paper/[0.18] hover:bg-paper/[0.025]"
         }`}
       >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{
-            background:
-              "radial-gradient(340px circle at var(--mx) var(--my), rgba(74,159,224,0.16), transparent 62%)",
-          }}
-        />
         <div className="relative flex h-full flex-col">
           {/* a categoria vira pílula: precisa saltar antes do título */}
           <span
             className={
               item.accent
-                ? "text-gradient-ia w-fit text-[11px] font-bold uppercase tracking-[0.16em]"
-                : "w-fit rounded-full border border-paper/12 bg-paper/[0.06] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-300"
+                ? "text-gradient-ia w-full max-w-[460px] rounded-full border border-paper/12 bg-paper/[0.055] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em]"
+                : "w-full max-w-[460px] rounded-full border border-paper/12 bg-paper/[0.055] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-300"
             }
           >
             {item.tag}
@@ -54,14 +33,14 @@ function Card({ item, index }: { item: (typeof modules.items)[number]; index: nu
               alt="Nexus IA"
               width={325}
               height={160}
-              className="mt-5 h-9 w-auto object-contain"
+              className="mt-10 h-9 w-auto object-contain"
             />
           ) : (
-            <h3 className="mt-5 font-display text-2xl tracking-tight text-paper">{item.title}</h3>
+            <h3 className="mt-10 font-display text-2xl font-semibold tracking-tight text-paper">{item.title}</h3>
           )}
 
-          <p className="mt-4 text-sm leading-relaxed text-fog">{item.body}</p>
-          <ul className="mt-7 flex flex-wrap gap-2 pt-1">
+          <p className="mt-7 text-[15px] leading-relaxed text-fog/95">{item.body}</p>
+          <ul className="mt-auto flex flex-wrap gap-2 pt-12">
             {item.bullets.map((b) => (
               <li
                 key={b}
