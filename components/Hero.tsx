@@ -14,9 +14,10 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export default function Hero() {
   const reduced = useReducedMotion();
   const [showIntro, setShowIntro] = useState(false);
+  const animateHero = !reduced && showIntro;
 
   // o texto começa a surgir enquanto a marca ainda desliza para a direita
-  const base = reduced || !showIntro ? 0 : 1.35;
+  const base = animateHero ? 1.35 : 0;
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
@@ -57,7 +58,7 @@ export default function Hero() {
       <div className="shell relative flex min-h-[calc(100svh-74px)] flex-col justify-center py-24">
         <motion.p
           className="eyebrow"
-          initial={reduced ? false : { opacity: 0 }}
+          initial={animateHero ? { opacity: 0 } : false}
           animate={{ opacity: 1 }}
           transition={{ delay: base, duration: 0.9 }}
         >
@@ -70,7 +71,7 @@ export default function Hero() {
             <span key={i} className="block overflow-hidden pb-[0.06em]">
               <motion.span
                 className={`block ${i >= 1 ? "text-brand-300" : ""}`}
-                initial={reduced ? false : { y: "110%" }}
+                initial={animateHero ? { y: "110%" } : false}
                 animate={{ y: 0 }}
                 transition={{ delay: base + 0.1 + i * 0.1, duration: 1.1, ease: EASE }}
               >
@@ -83,14 +84,14 @@ export default function Hero() {
         {/* filete que se desenha, separando título de apoio */}
         <motion.span
           className="mt-10 block h-px w-full max-w-[520px] origin-left bg-gradient-to-r from-brand-400/70 to-transparent"
-          initial={reduced ? false : { scaleX: 0 }}
+          initial={animateHero ? { scaleX: 0 } : false}
           animate={{ scaleX: 1 }}
           transition={{ delay: base + 0.45, duration: 1.2, ease: EASE }}
         />
 
         <motion.p
           className="mt-8 max-w-[54ch] text-[15px] leading-relaxed text-fog md:text-[17px]"
-          initial={reduced ? false : { opacity: 0, y: 14 }}
+          initial={animateHero ? { opacity: 0, y: 14 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: base + 0.55, duration: 1 }}
         >
@@ -99,7 +100,7 @@ export default function Hero() {
 
         <motion.div
           className="mt-11 flex flex-wrap items-center gap-4"
-          initial={reduced ? false : { opacity: 0, y: 14 }}
+          initial={animateHero ? { opacity: 0, y: 14 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: base + 0.68, duration: 1 }}
         >
@@ -146,7 +147,7 @@ export default function Hero() {
 
         <motion.dl
           className="mt-20 grid max-w-3xl grid-cols-1 gap-x-12 gap-y-7 sm:grid-cols-3"
-          initial={reduced ? false : { opacity: 0 }}
+          initial={animateHero ? { opacity: 0 } : false}
           animate={{ opacity: 1 }}
           transition={{ delay: base + 0.85, duration: 1.1 }}
         >
@@ -160,12 +161,12 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="relative border-y border-paper/[0.16] py-4"
-        initial={reduced ? false : { opacity: 0 }}
+        className="relative max-w-[100vw] overflow-hidden border-y border-paper/[0.16] py-4"
+        initial={animateHero ? { opacity: 0 } : false}
         animate={{ opacity: 1 }}
         transition={{ delay: base + 1, duration: 1 }}
       >
-        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap will-change-transform">
+        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap will-change-transform motion-reduce:animate-none max-md:animate-none">
           {[...marquee, ...marquee].map((m, i) => (
             <span
               key={i}
