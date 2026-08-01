@@ -16,7 +16,7 @@ export default function ProductMatrix() {
   return (
     <AppWindow title="Acompanhamento do professor · matriz de desempenho" badge={<LiveBadge />}>
       {/* abas reais do sistema */}
-      <div className="flex gap-1.5 overflow-x-auto border-b border-slate-200 px-4 pb-2 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex max-w-full gap-1.5 overflow-x-auto overscroll-x-contain border-b border-slate-200 px-4 pb-2 pt-3 [scrollbar-width:none] [touch-action:pan-x_pan-y] [&::-webkit-scrollbar]:hidden">
         {MATRIX_TABS.map((t, i) => (
           <button
             key={t}
@@ -69,8 +69,8 @@ export default function ProductMatrix() {
       </div>
 
       {/* matriz aluno × linha */}
-      <div className="overflow-x-auto px-4 pb-5">
-        <table className="w-max border-separate border-spacing-1.5 text-[12px]">
+      <div className="max-w-full overflow-x-auto overscroll-x-contain px-4 pb-5 [touch-action:pan-x_pan-y]">
+        <table className="min-w-[760px] w-max border-separate border-spacing-1.5 text-[12px]">
           <thead>
             <tr>
               <th className="sticky left-0 z-10 bg-white pr-3 text-left align-bottom">

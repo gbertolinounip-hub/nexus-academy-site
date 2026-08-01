@@ -47,12 +47,12 @@ export default function Psychometrics() {
               {/* leitura pedagógica gerada a partir dos indicadores */}
               <div className="m-4 rounded-xl bg-slate-50 p-5">
                 <h3 className="text-[14px] font-bold text-slate-800">{READING.title}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-slate-600">{READING.body}</p>
-                <p className="mt-3 text-[12px] leading-relaxed text-slate-400">{READING.note}</p>
+                <p className="mt-2 max-w-full text-[13px] leading-relaxed text-slate-600">{READING.body}</p>
+                <p className="mt-3 max-w-full text-[12px] leading-relaxed text-slate-400">{READING.note}</p>
               </div>
 
-              <div className="overflow-x-auto px-4 pb-5">
-                <table className="w-max min-w-full text-left text-[12px]">
+              <div className="max-w-full overflow-x-auto overscroll-x-contain px-4 pb-5 [touch-action:pan-x_pan-y]">
+                <table className="min-w-[760px] w-max text-left text-[12px]">
                   <thead>
                     <tr className="border-b border-slate-200 text-[10px] uppercase tracking-[0.1em] text-slate-500">
                       {COLS.map((h) => (

@@ -17,9 +17,9 @@ export default function AppWindow({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-2xl border border-paper/12 bg-white shadow-[0_40px_90px_-30px_rgba(0,0,0,0.85)] ${className ?? ""}`}
+      className={`w-full max-w-full overflow-hidden rounded-2xl border border-paper/12 bg-white shadow-[0_40px_90px_-30px_rgba(0,0,0,0.85)] ${className ?? ""}`}
     >
-      <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-100 px-4 py-3">
+      <div className="flex min-w-0 items-center gap-2 border-b border-slate-200 bg-slate-100 px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
         <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
         <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
@@ -28,7 +28,7 @@ export default function AppWindow({
         </span>
         {badge ? <span className="ml-auto shrink-0">{badge}</span> : null}
       </div>
-      <div className="bg-white text-slate-800">{children}</div>
+      <div className="min-w-0 bg-white text-slate-800">{children}</div>
     </div>
   );
 }

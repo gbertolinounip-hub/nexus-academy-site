@@ -32,6 +32,7 @@ export default function Profiles() {
                     <button
                       onClick={() => pick(i)}
                       aria-pressed={on}
+                      aria-expanded={on}
                       className={`group flex w-full items-center justify-between gap-4 border-t py-5 text-left transition-colors ${
                         on ? "border-brand-300" : "border-paper/[0.14] hover:border-brand-400/50"
                       }`}
@@ -54,7 +55,7 @@ export default function Profiles() {
                         {i === hintAt && <PulseRing tone="dark" />}
                         <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                           <path
-                            d="M2.6 6.5h7.8M7.1 3.2l3.3 3.3-3.3 3.3"
+                            d={on ? "M3.2 5.1 6.5 8.4l3.3-3.3" : "M2.6 6.5h7.8M7.1 3.2l3.3 3.3-3.3 3.3"}
                             stroke="currentColor"
                             strokeWidth="1.3"
                             strokeLinecap="round"
@@ -63,13 +64,41 @@ export default function Profiles() {
                         </svg>
                       </span>
                     </button>
+                    {on && (
+                      <div className="border-t border-paper/[0.08] pb-7 pt-2 lg:hidden">
+                        <ul className="space-y-3 rounded-xl border border-paper/[0.08] bg-paper/[0.025] p-5">
+                          {g.items.map((item) => (
+                            <li key={item} className="flex gap-3 text-[14px] leading-snug text-paper/85">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                className="mt-0.5 shrink-0"
+                                aria-hidden
+                              >
+                                <circle cx="8.5" cy="8.5" r="7.5" stroke="#4A9FE0" strokeWidth="1.1" opacity=".55" />
+                                <path
+                                  d="m5.4 8.7 2.1 2.1 4.2-4.6"
+                                  stroke="#7CC0F5"
+                                  strokeWidth="1.4"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </li>
                 );
               })}
             </ul>
 
             {/* benefícios do perfil selecionado */}
-            <div className="card p-8 md:p-10">
+            <div className="card hidden p-8 lg:block lg:p-10">
               <p className="text-[11px] uppercase tracking-[0.2em] text-brand-300/80">{group.who}</p>
               <ul className="mt-7 space-y-4">
                 {group.items.map((item, i) => (

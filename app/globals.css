@@ -87,6 +87,14 @@ body {
   overscroll-behavior-x: none;
 }
 
+:where(main, section, article, div) {
+  min-width: 0;
+}
+
+:where(p, h1, h2, h3, h4, li, dd, dt) {
+  overflow-wrap: break-word;
+}
+
 html {
   /* NÃO declare `scroll-behavior: smooth` aqui.
      O Lenis (components/Chrome.tsx) já faz a rolagem suave, e os dois juntos
