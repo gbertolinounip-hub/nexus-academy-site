@@ -17,6 +17,7 @@ const OFFSET_CABECALHO = -96;
 export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
     let raf = 0;
     const loop = (t: number) => {

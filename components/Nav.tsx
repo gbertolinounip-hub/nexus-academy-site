@@ -68,8 +68,8 @@ export default function Nav() {
             priority
             className="h-9 w-9 object-contain"
           />
-          <span className="hidden leading-tight sm:block">
-            <span className="block font-display text-[15px] font-semibold tracking-tight">
+          <span className="block leading-tight">
+            <span className="block font-display text-[15px] font-semibold tracking-tight text-paper">
               Nexus Academy
             </span>
             <span className="hidden text-[10px] uppercase tracking-[0.2em] text-fog/70 min-[780px]:block">

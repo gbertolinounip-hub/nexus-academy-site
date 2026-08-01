@@ -16,7 +16,7 @@ export default function Hero() {
   const [showIntro, setShowIntro] = useState(false);
 
   // o texto começa a surgir enquanto a marca ainda desliza para a direita
-  const base = reduced ? 0 : 1.35;
+  const base = reduced || !showIntro ? 0 : 1.35;
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
@@ -46,8 +46,10 @@ export default function Hero() {
         alt=""
         width={900}
         height={900}
-        priority
-        className="pointer-events-none absolute -right-[42%] top-[13%] h-auto w-[92vw] max-w-none opacity-[0.10] mix-blend-screen md:hidden"
+        sizes="92vw"
+        quality={55}
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[42%] top-[13%] h-auto w-[92vw] max-w-none opacity-[0.08] mix-blend-screen md:hidden"
       />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent" />
